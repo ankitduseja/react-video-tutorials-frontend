@@ -46,8 +46,29 @@ export default function createRoutes(store) {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
+    },    {
+      path: '/video/:videoId',
+      name: 'videoPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/VideoPage/reducer'),
+          System.import('containers/VideoPage/sagas'),
+          System.import('containers/VideoPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('videoPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
     }, {
       path: '*',
+
       name: 'notfound',
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')

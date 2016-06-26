@@ -17,6 +17,24 @@ export default function request(url, options) {
 }
 
 /**
+ * Requests a URL, returning a promise
+ *
+ * @param  {object} Object to be converted
+ *
+ * @return {object}           FormData Object returned
+ */
+export function objToFormBody(obj) {
+  var formBody = [];
+  for (var property in obj) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(obj[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  return formBody;
+}
+
+/**
  * Parses the JSON returned by a network request
  *
  * @param  {object} response A response from a network request

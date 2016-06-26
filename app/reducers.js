@@ -40,10 +40,14 @@ function routeReducer(state = routeInitialState, action) {
 /**
  * Creates the main reducer with the asynchronously loaded ones
  */
+import videoPageReducer from 'containers/VideoPage/reducer';
+import videoListReducer from 'containers/VideoList/reducer';
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: globalReducer,
+    videoPage: videoPageReducer,
+    videoList: videoListReducer,
     ...asyncReducers,
   });
 }

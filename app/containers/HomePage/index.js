@@ -18,10 +18,14 @@ import {
 } from 'containers/App/selectors';
 
 import {
+  selectHome,
+} from 'containers/HomePage/selectors';
+
+import {
   selectUsername,
 } from './selectors';
 
-import { changeUsername } from './actions';
+import { changeUsername, userLogin, userLogout, openSnackBar, closeSnackBar } from './actions';
 import { loadRepos } from '../App/actions';
 
 import RepoListItem from 'containers/RepoListItem';
@@ -30,6 +34,12 @@ import H2 from 'components/H2';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
+import LoginForm from 'components/LoginForm';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
+
+import VideoList from 'containers/VideoList';
 
 import styles from './styles.css';
 
@@ -53,13 +63,18 @@ export class HomePage extends React.Component {
   openRoute = (route) => {
     this.props.changeRoute(route);
   };
-
   /**
    * Changed route to '/features'
    */
   openFeaturesPage = () => {
     this.openRoute('/features');
   };
+  openPage = (url) => {
+    this.openRoute(url);
+  }
+  onRate = (x) => {
+    console.log(x);
+  }
 
   render() {
     let mainContent = null;
@@ -80,36 +95,56 @@ export class HomePage extends React.Component {
       mainContent = (<List items={this.props.repos} component={RepoListItem} />);
     }
 
+    // user
+    var logarea=[];
+    var logStatus=null;
+    if(this.props.home.sessionId) {
+      logStatus=<RaisedButton onClick={this.props.onLogout}>Logout</RaisedButton>;
+      logarea.push(<VideoList goto={this.openPage} rate={this.onRate}/>);
+    } else {
+      logStatus=<LoginForm onSubmit={this.props.onLogin} onSnackbarOpen={this.props.onSnackbarOpen}/>
+    }
+    logarea.push(logStatus);
     return (
       <article>
         <div>
           <section className={`${styles.textSection} ${styles.centered}`}>
-            <H2>Start your next react project in seconds</H2>
-            <p>A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</p>
+            {logarea}
           </section>
-          <section className={styles.textSection}>
-            <H2>Try me!</H2>
-            <form className={styles.usernameForm} onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">Show Github repositories by
-                <span className={styles.atPrefix}>@</span>
-                <input
-                  id="username"
-                  className={styles.input}
-                  type="text"
-                  placeholder="mxstbr"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </form>
-            {mainContent}
-          </section>
+
           <Button handleRoute={this.openFeaturesPage}>Features</Button>
+
+          <Snackbar
+            open={this.props.home.snackBarStatus}
+            message={this.props.home.snackBarMessage}
+            action="undo"
+            autoHideDuration={5000}
+            onActionTouchTap={this.handleActionTouchTap}
+            onRequestClose={this.props.onSnackbarClose}
+          />
         </div>
       </article>
     );
   }
 }
+
+// <section className={styles.textSection}>
+//   <H2>Try me!</H2>
+//   <form className={styles.usernameForm} onSubmit={this.props.onSubmitForm}>
+//     <label htmlFor="username">Show Github repositories by
+//       <span className={styles.atPrefix}>@</span>
+//       <input
+//         id="username"
+//         className={styles.input}
+//         type="text"
+//         placeholder="mxstbr"
+//         value={this.props.username}
+//         onChange={this.props.onChangeUsername}
+//       />
+//     </label>
+//   </form>
+//   {mainContent}
+// </section>
 
 HomePage.propTypes = {
   changeRoute: React.PropTypes.func,
@@ -122,7 +157,12 @@ HomePage.propTypes = {
     React.PropTypes.array,
     React.PropTypes.bool,
   ]),
+  home: React.PropTypes.object,
   onSubmitForm: React.PropTypes.func,
+  onLogin: React.PropTypes.func,
+  onLogout: React.PropTypes.func,
+  openSnackBar: React.PropTypes.func,
+  closeSnackBar: React.PropTypes.func,
   username: React.PropTypes.string,
   onChangeUsername: React.PropTypes.func,
 };
@@ -131,6 +171,10 @@ function mapDispatchToProps(dispatch) {
   return {
     onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
     changeRoute: (url) => dispatch(push(url)),
+    onLogin: (data) => dispatch(userLogin(data)),
+    onLogout: () => dispatch(userLogout()),
+    onSnackbarOpen: (m) => dispatch(openSnackBar(m)),
+    onSnackbarClose: () => dispatch(closeSnackBar()),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
@@ -142,9 +186,10 @@ function mapDispatchToProps(dispatch) {
 
 // Wrap the component to inject dispatch and state into it
 export default connect(createSelector(
+  selectHome(),
   selectRepos(),
   selectUsername(),
   selectLoading(),
   selectError(),
-  (repos, username, loading, error) => ({ repos, username, loading, error })
+  (home, repos, username, loading, error) => ({ home:home.toJS(), repos, username, loading, error })
 ), mapDispatchToProps)(HomePage);

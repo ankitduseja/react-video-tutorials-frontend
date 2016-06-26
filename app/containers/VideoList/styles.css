@@ -1,0 +1,27 @@
+.videoList {
+
+}
+.vidlist {
+  width: 100%;
+  margin: auto;
+  min-height: 4em;
+  display: block;
+  overflow: auto;
+}
+.container {
+  width: 100%;
+  min-height: 800px;
+  display: block;
+}
+.lazyloaders {
+  width: 100%;
+}
+.lazyload {
+  width: 100%;
+}
+.lazyloadshow {
+  display: block;
+}
+.lazyloader {
+  width: 100%;
+}
