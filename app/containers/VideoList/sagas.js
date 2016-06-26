@@ -5,8 +5,8 @@ import request from 'utils/request';
 
 import * as C from './constants';
 import * as actions from 'containers/VideoList/actions';
-import { openSnackBar } from 'containers/HomePage/actions';
-import { selectSessionId } from 'containers/HomePage/selectors';
+import { openSnackBar } from 'containers/App/actions';
+import { selectSessionId } from 'containers/App/selectors';
 
 // All sagas to be loaded
 export default [

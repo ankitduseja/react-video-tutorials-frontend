@@ -12,3 +12,14 @@
 export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
 export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
 export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+
+export const USER_LOGIN = 'videosApp/App/USER_LOGIN';
+export const USER_LOGIN_SUCCESS = 'videosApp/App/USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAILURE = 'videosApp/App/USER_LOGIN_FAILURE';
+
+export const USER_LOGOUT = 'videosApp/App/USER_LOGOUT';
+export const USER_LOGOUT_SUCCESS = 'videosApp/App/USER_LOGOUT_SUCCESS';
+export const USER_LOGOUT_FAILURE = 'videosApp/App/USER_LOGOUT_FAILURE';
+
+export const SNACKBAR_OPEN = 'videosApp/App/SNACKBAR_OPEN';
+export const SNACKBAR_CLOSE = 'videosApp/App/SNACKBAR_CLOSE';

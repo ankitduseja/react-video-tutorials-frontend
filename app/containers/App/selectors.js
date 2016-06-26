@@ -6,6 +6,15 @@ import { createSelector } from 'reselect';
 
 const selectGlobal = () => (state) => state.get('global');
 
+const selectApp = () => createSelector(
+  [selectGlobal()],
+  (app) => {
+    return {
+      app:app.toJS(),
+    }
+  }
+);
+
 const selectCurrentUser = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('currentUser')
@@ -26,6 +35,22 @@ const selectRepos = () => createSelector(
   (globalState) => globalState.getIn(['userData', 'repositories'])
 );
 
+const selectUserName = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('userName')
+);
+
+const selectUserPass = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('userPass')
+);
+
+const selectSessionId = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('sessionId')
+);
+
+
 const selectLocationState = () => {
   let prevRoutingState;
   let prevRoutingStateJS;
@@ -44,9 +69,14 @@ const selectLocationState = () => {
 
 export {
   selectGlobal,
+  selectApp,
   selectCurrentUser,
   selectLoading,
   selectError,
   selectRepos,
   selectLocationState,
+
+  selectUserName,
+  selectUserPass,
+  selectSessionId,
 };

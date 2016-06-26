@@ -15,18 +15,17 @@ import {
   selectRepos,
   selectLoading,
   selectError,
+  selectGlobal,
 } from 'containers/App/selectors';
 
 import {
   selectHome,
+  selectUsername,
 } from 'containers/HomePage/selectors';
 
-import {
-  selectUsername,
-} from './selectors';
 
-import { changeUsername, userLogin, userLogout, openSnackBar, closeSnackBar } from './actions';
-import { loadRepos } from '../App/actions';
+import { changeUsername } from './actions';
+import { loadRepos, userLogin, userLogout, openSnackBar, closeSnackBar } from 'containers/App/actions';
 
 import RepoListItem from 'containers/RepoListItem';
 import Button from 'components/Button';
@@ -98,7 +97,7 @@ export class HomePage extends React.Component {
     // user
     var logarea=[];
     var logStatus=null;
-    if(this.props.home.sessionId) {
+    if(this.props.app.sessionId) {
       logStatus=<RaisedButton onClick={this.props.onLogout}>Logout</RaisedButton>;
       logarea.push(<VideoList goto={this.openPage} rate={this.onRate}/>);
     } else {
@@ -114,14 +113,6 @@ export class HomePage extends React.Component {
 
           <Button handleRoute={this.openFeaturesPage}>Features</Button>
 
-          <Snackbar
-            open={this.props.home.snackBarStatus}
-            message={this.props.home.snackBarMessage}
-            action="undo"
-            autoHideDuration={5000}
-            onActionTouchTap={this.handleActionTouchTap}
-            onRequestClose={this.props.onSnackbarClose}
-          />
         </div>
       </article>
     );
@@ -186,10 +177,11 @@ function mapDispatchToProps(dispatch) {
 
 // Wrap the component to inject dispatch and state into it
 export default connect(createSelector(
+  selectGlobal(),
   selectHome(),
   selectRepos(),
   selectUsername(),
   selectLoading(),
   selectError(),
-  (home, repos, username, loading, error) => ({ home:home.toJS(), repos, username, loading, error })
+  (app, home, repos, username, loading, error) => ({ app: app.toJS(), home:home.toJS(), repos, username, loading, error })
 ), mapDispatchToProps)(HomePage);

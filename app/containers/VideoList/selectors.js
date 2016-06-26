@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 import {selectHome} from 'containers/HomePage/selectors';
+
+import {selectGlobal} from 'containers/App/selectors';
 /**
  * Direct selector to the videoList state domain
  */
@@ -15,9 +17,10 @@ const selectVideoListDomain = () => state => state.get('videoList');
  */
 
 const selectVideoList = () => createSelector(
-  [selectVideoListDomain(), selectHome()],
-  (videoList,home) => {
+  [selectGlobal(),selectVideoListDomain(), selectHome()],
+  (app,videoList,home) => {
     return {
+      app:app.toJS(),
       videolist:videoList.toJS(),
       homepage:home.toJS(),
     }

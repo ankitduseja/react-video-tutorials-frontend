@@ -8,6 +8,8 @@
 
 import React from 'react';
 
+import { connect } from 'react-redux';
+
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
 
@@ -25,6 +27,8 @@ import Snackbar from 'material-ui/Snackbar';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import styles from './styles.css';
+
+import {selectApp} from './selectors';
 
 function App(props) {
   return (
@@ -47,6 +51,12 @@ function App(props) {
           }
         />
           {props.children}
+          <Snackbar
+            open={props.app.snackBarStatus}
+            message={props.app.snackBarMessage}
+            autoHideDuration={5000}
+            onRequestClose={props.onSnackbarClose}
+            />
     </div>
   </MuiThemeProvider>
   );
@@ -59,4 +69,14 @@ App.propTypes = {
   children: React.PropTypes.node,
 };
 
-export default App;
+// export default App;
+
+const mapStateToProps = selectApp();
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
