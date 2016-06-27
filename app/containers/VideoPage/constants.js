@@ -4,6 +4,7 @@
  *
  */
 
+export const DEFAULT_ACTION = 'videosApp/VideoPage/DEFAULT_ACTION';
 export const VIDEO_FETCH = 'videosApp/VideoPage/VIDEO_FETCH';
 export const VIDEO_FETCH_SUCCESS = 'videosApp/VideoPage/VIDEO_FETCH_SUCCESS';
 export const VIDEO_FETCH_FAILURE = 'videosApp/VideoPage/VIDEO_FETCH_FAILURE';

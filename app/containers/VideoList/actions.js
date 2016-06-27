@@ -6,6 +6,12 @@
 
 import * as C from './constants';
 
+export function defaultAction() {
+  return {
+    type: C.DEFAULT_ACTION,
+  };
+}
+
 export function playVideo(id) {
   return {
     type: C.VIDEO_PLAY,

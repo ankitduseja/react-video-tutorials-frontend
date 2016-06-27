@@ -6,6 +6,12 @@
 
 import * as C from './constants';
 
+export function defaultAction() {
+  return {
+    type: C.DEFAULT_ACTION,
+  };
+}
+
 export function fetchVideo(options) {
   return {
     type: C.VIDEO_FETCH,
