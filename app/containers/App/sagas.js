@@ -57,7 +57,7 @@ export function* loginUserSaga() {
       stop: take(LOCATION_CHANGE), // stop watching if user leaves page
     });
     if (watcher.stop) break;
-    yield put(AppActions.openSnackBar('Loggin In...'));
+    yield put(AppActions.openSnackBar('Logging In...'));
 
     const requestURL = config.backendDomain+`/user/auth`;
     let postdata={};
@@ -82,7 +82,6 @@ export function* loginUserSaga() {
       yield put(AppActions.openSnackBar('Logged In!'));
       yield put(AppActions.loginSuccess(repos.data));
     } else {
-      console.log('repo error');
       console.log(repos); // eslint-disable-line no-console
       yield put(AppActions.openSnackBar('Login Failed: '+repos.data.error));
       yield put(AppActions.loginFailure(repos.data));
@@ -111,8 +110,48 @@ export function* logoutUserSaga() {
       yield put(AppActions.openSnackBar('Logged Out Succesfully!'));
     } else {
       console.log(repos); // eslint-disable-line no-console
-      yield put(AppActions.openSnackBar('Logout Failed: '+repos.data.error));
+      yield put(AppActions.openSnackBar('Logout Failed: '+repos.data));
       yield put(AppActions.logoutFailure(repos.data));
+    }
+  }
+}
+
+// Individual exports for testing
+export function* rateVideo() {
+  while (true) {
+    const watcher = yield race({
+      rateVideo: take(AppC.VIDEO_RATE),
+      stop: take(LOCATION_CHANGE), // stop watching if user leaves page
+    });
+    if (watcher.stop) break;
+    yield put(AppActions.openSnackBar('Recording your rating...'));
+
+    const sessionId = yield select(selectSessionId());
+    const requestURL = config.backendDomain+`/video/ratings?sessionId=${sessionId}`;
+    let postdata=watcher.rateVideo.data;
+    console.log(postdata);
+    const formbody=objToFormBody(postdata);
+    const requestOptions={
+      method: 'POST',
+      contentType:"application/x-www-form-urlencoded",
+      headers: {
+        'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      body: formbody,
+      cache: false
+    };
+    console.log(requestURL);
+    // Use call from redux-saga for easier testing
+    const repos = yield call(request, requestURL, requestOptions);
+    // We return an object in a specific format, see utils/request.js for more information
+    if ((repos.err === undefined || repos.err === null) && typeof repos.data==='object' && repos.data.status==='success') {
+      yield put(AppActions.openSnackBar('Rating Recorded!'));
+      yield put(AppActions.videoRateSuccess(repos.data));
+    } else {
+      console.log(repos); // eslint-disable-line no-console
+      yield put(AppActions.openSnackBar('Rating Failed: '+repos.data.error));
+      yield put(AppActions.videoRateFailure(repos.data));
     }
   }
 }

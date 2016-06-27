@@ -5,7 +5,7 @@ import request from 'utils/request';
 
 import * as C from './constants';
 import * as actions from 'containers/VideoList/actions';
-import { openSnackBar } from 'containers/App/actions';
+import { openSnackBar,closeSnackBar } from 'containers/App/actions';
 import { selectSessionId } from 'containers/App/selectors';
 
 // All sagas to be loaded
@@ -25,7 +25,9 @@ export function* loadVideos() {
       loadVideos: take(C.VIDEOS_FETCH),
       stop: take(LOCATION_CHANGE), // stop watching if user leaves page
     });
-    if (watcher.stop) break;
+    if (watcher.stop) {
+      break;
+    }
     yield put(openSnackBar('Loading Videos...'));
     const sessionId = yield select(selectSessionId());
 
@@ -45,7 +47,7 @@ export function* loadVideos() {
     const repos = yield call(request, requestURL);
     // We return an object in a specific format, see utils/request.js for more information
     if ((repos.err === undefined || repos.err === null) && typeof repos.data==='object' && repos.data.status==='success') {
-      yield put(openSnackBar('Videos Loaded!'));
+      yield put(closeSnackBar());
       yield put(actions.fetchVideosSuccess(repos.data.data));
     } else {
       yield put(openSnackBar('Unable to load videos!'));

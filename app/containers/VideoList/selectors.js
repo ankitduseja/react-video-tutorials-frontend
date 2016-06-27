@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import {selectHome} from 'containers/HomePage/selectors';
-
 import {selectGlobal} from 'containers/App/selectors';
 /**
  * Direct selector to the videoList state domain

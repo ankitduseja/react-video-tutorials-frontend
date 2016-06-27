@@ -25,7 +25,7 @@ import {
 
 
 import { changeUsername } from './actions';
-import { loadRepos, userLogin, userLogout, openSnackBar, closeSnackBar } from 'containers/App/actions';
+import { loadRepos, userLogin, userLogout, openSnackBar, closeSnackBar, videoRate, checkCookie } from 'containers/App/actions';
 
 import RepoListItem from 'containers/RepoListItem';
 import Button from 'components/Button';
@@ -43,6 +43,12 @@ import VideoList from 'containers/VideoList';
 import styles from './styles.css';
 
 export class HomePage extends React.Component {
+  constructor() {
+    super();
+  }
+  componentWillMount() {
+    this.props.checkCookie();
+  }
   /**
    * when initial state username is not null, submit the form to load repos
    */
@@ -71,9 +77,6 @@ export class HomePage extends React.Component {
   openPage = (url) => {
     this.openRoute(url);
   }
-  onRate = (x) => {
-    console.log(x);
-  }
 
   render() {
     let mainContent = null;
@@ -95,24 +98,19 @@ export class HomePage extends React.Component {
     }
 
     // user
-    var logarea=[];
-    var logStatus=null;
+    var logarea=null;
     if(this.props.app.sessionId) {
-      logStatus=<RaisedButton onClick={this.props.onLogout}>Logout</RaisedButton>;
-      logarea.push(<VideoList goto={this.openPage} rate={this.onRate}/>);
+      // logStatus=<RaisedButton onClick={this.props.onLogout}>Logout</RaisedButton>;
+      logarea=(<VideoList goto={this.openPage} rate={this.props.onRating}/>);
     } else {
-      logStatus=<LoginForm onSubmit={this.props.onLogin} onSnackbarOpen={this.props.onSnackbarOpen}/>
+      logarea=<LoginForm onSubmit={this.props.onLogin} onSnackbarOpen={this.props.onSnackbarOpen}/>
     }
-    logarea.push(logStatus);
     return (
       <article>
         <div>
           <section className={`${styles.textSection} ${styles.centered}`}>
             {logarea}
           </section>
-
-          <Button handleRoute={this.openFeaturesPage}>Features</Button>
-
         </div>
       </article>
     );
@@ -156,16 +154,19 @@ HomePage.propTypes = {
   closeSnackBar: React.PropTypes.func,
   username: React.PropTypes.string,
   onChangeUsername: React.PropTypes.func,
+  onRating: React.PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
+    checkCookie: () => dispatch(checkCookie()),
     onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
     changeRoute: (url) => dispatch(push(url)),
     onLogin: (data) => dispatch(userLogin(data)),
     onLogout: () => dispatch(userLogout()),
     onSnackbarOpen: (m) => dispatch(openSnackBar(m)),
     onSnackbarClose: () => dispatch(closeSnackBar()),
+    onRating: (data) => dispatch(videoRate(data)),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());

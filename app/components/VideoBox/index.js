@@ -17,8 +17,8 @@ class VideoBox extends React.Component {
   render() {
     return (
       <Paper className={ styles.videoBox }>
-        <Video className={styles.url} videoProp={this.props.videoProp}></Video>
-        <Ratings rate={this.props.rate} videoId={this.props.videoProp._id} rating={this.props.videoProp.ratings}/>
+        <Video activeVideo={this.props.activeVideo} onPlay={this.props.onPlay} width={180} height={100} via={'box'} className={styles.url} videoProp={this.props.videoProp}></Video>
+        <div className={styles.ratings}><Ratings rate={this.props.rate} videoId={this.props.videoProp._id} rating={this.props.videoProp.ratings}/></div>
         <div onClick={this.openPage.bind(this)} className={styles.title}>{this.props.videoProp.name}</div>
       </Paper>
     );

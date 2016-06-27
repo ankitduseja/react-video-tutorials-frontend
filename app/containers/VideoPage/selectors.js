@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-
+import {selectGlobal} from 'containers/App/selectors';
 /**
  * Direct selector to the videoPage state domain
  */
@@ -15,8 +15,10 @@ const selectVideoPageDomain = () => state => state.get('videoPage');
  */
 
 const selectVideoPage = () => createSelector(
-  selectVideoPageDomain(),
-  (substate) => substate.toJS()
+  [selectGlobal(),selectVideoPageDomain()],
+  (app,substate) => {
+    return {app:app.toJS(),videopage:substate.toJS()}
+  }
 );
 
 export default selectVideoPage;

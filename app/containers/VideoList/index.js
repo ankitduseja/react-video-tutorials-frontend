@@ -19,14 +19,13 @@ export class VideoList extends React.Component { // eslint-disable-line react/pr
   }
   loadVideos() {
     var page=this.props.videolist.lazypage;
-    var limit=6;
+    var limit=10;
     var skip=page*limit;
     var obj={
       limit,
       skip,
       page,
     };
-    console.log(obj);
     this.props.onLoadFetchData(obj);
   }
   render() {
@@ -34,7 +33,11 @@ export class VideoList extends React.Component { // eslint-disable-line react/pr
     var vidlist=[];
     var lazyloadz=[];
     for(var i in list) {
-      vidlist.push(<VideoBox goto={this.props.goto} rate={this.props.rate} key={list[i]._id} nos={i} videoProp={list[i]}/>);
+      var active=false;
+      if(list[i]._id==this.props.videolist.videoPlaying) {
+        active=true;
+      }
+      vidlist.push(<VideoBox activeVideo={active} goto={this.props.goto} rate={this.props.rate} key={list[i]._id} nos={i} videoProp={list[i]} onPlay={this.props.onPlayVideo}/>);
     }
     for(var j=0;j<=this.props.videolist.lazypage;j++) {
       var show=(j==this.props.videolist.lazypage)?styles.lazyloadshow:'';
@@ -65,6 +68,7 @@ const mapStateToProps = selectVideoList();
 function mapDispatchToProps(dispatch) {
   return {
     onLoadFetchData: (data) => dispatch(actions.fetchVideos(data)),
+    onPlayVideo: (id) => dispatch(actions.playVideo(id)),
     dispatch,
   };
 }

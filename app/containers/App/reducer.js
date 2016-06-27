@@ -12,6 +12,7 @@
 
 import * as C from './constants';
 import { fromJS } from 'immutable';
+import cookie from 'react-cookie';
 
 // The initial state of the App
 const initialState = fromJS({
@@ -28,6 +29,7 @@ const initialState = fromJS({
   sessionId: null,
   snackBarStatus: false,
   snackBarMessage: '',
+  cookieLoad: false,
 });
 
 function homeReducer(state = initialState, action) {
@@ -59,7 +61,21 @@ function homeReducer(state = initialState, action) {
         .set('sessionState','loginTry')
         .set('userName', action.data.userName)
         .set('userPass', action.data.userPass);
+    case C.USER_COOKIE_SUCCESS:
+      cookie.save('sessionUser', action.data.sessionUser, { path: '/' });
+      cookie.save('sessionId', action.data.sessionId, { path: '/' });
+      return state
+        .set('cookieLoad',true)
+        .set('sessionState','loginSuccessFromCookie')
+        .set('sessionUser',action.data.username)
+        .set('sessionId',action.data.sessionId);
+    case C.USER_COOKIE_FAILURE:
+      return state
+        .set('cookieLoad',true)
+        .set('sessionState','loginFailureFromCookie');
     case C.USER_LOGIN_SUCCESS:
+      cookie.save('sessionUser', action.data.username, { path: '/' });
+      cookie.save('sessionId', action.data.sessionId, { path: '/' });
       return state
         .set('sessionState','loginSuccess')
         .set('sessionUser',action.data.username)
@@ -72,6 +88,10 @@ function homeReducer(state = initialState, action) {
         .set('userName', null)
         .set('userPass', null);
     case C.USER_LOGOUT:
+      cookie.remove('sessionUser', { path: '/' });
+      cookie.remove('sessionId', { path: '/' });
+      /** Clear all cookies starting with 'session' (to get all cookies, omit regex argument) */
+      Object.keys(cookie.select(/^session.*/i)).forEach(name => cookie.remove(name, { path: '/' }))
       return state
         .set('sessionState','logoutTry');
     case C.USER_LOGOUT_SUCCESS:
@@ -81,7 +101,9 @@ function homeReducer(state = initialState, action) {
         .set('sessionId',null);
     case C.USER_LOGOUT_FAILURE:
       return state
-        .set('sessionState','logoutFailure');
+        .set('sessionState','logoutFailure')
+        .set('sessionUser',null)
+        .set('sessionId',null);
     default:
       return state;
   }

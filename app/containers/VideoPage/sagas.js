@@ -1,16 +1,17 @@
 import { take, call, put, select, race } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import config from '../../config.js'
+import config from '../../config.js';
 import request from 'utils/request';
 
 import * as C from './constants';
 import * as actions from 'containers/VideoPage/actions';
+import {logoutUserSaga, rateVideo} from 'containers/App/sagas';
 // import { openSnackBar } from 'containers/HomePage/actions';
-import { selectSessionId } from 'containers/HomePage/selectors';
+import { selectSessionId } from 'containers/App/selectors';
 
 // All sagas to be loaded
 export default [
-  loadVideo,
+  loadVideo,logoutUserSaga,rateVideo
 ];
 
 // Individual exports for testing
@@ -31,7 +32,7 @@ export function* loadVideo() {
 
     var options=watcher.loadVideo.options;
     var videoId=options.videoId;
-    const requestURL = config.backendDomain+`/videos?sessionId=${sessionId}&videoId=${videoId}`;
+    const requestURL = config.backendDomain+`/video?sessionId=${sessionId}&videoId=${videoId}`;
     // Use call from redux-saga for easier testing
     console.log('requesting:'+requestURL);
     const repos = yield call(request, requestURL);

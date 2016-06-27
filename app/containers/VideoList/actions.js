@@ -6,6 +6,13 @@
 
 import * as C from './constants';
 
+export function playVideo(id) {
+  return {
+    type: C.VIDEO_PLAY,
+    id,
+  };
+}
+
 export function fetchVideos(options) {
   return {
     type: C.VIDEOS_FETCH,

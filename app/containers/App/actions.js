@@ -16,6 +16,7 @@
  */
 
 import * as C from './constants';
+import cookie from 'react-cookie';
 
 /**
  * Load the repositories, this action starts the getGithubData saga
@@ -71,6 +72,32 @@ export function userLogin(data) {
     type: C.USER_LOGIN,
     data,
   };
+}
+
+/**
+ * Send Login Requst
+ *
+ * @param  {}
+ *
+ * @return {object}    An action object with a type of
+ */
+export function checkCookie() {
+  var sessionUser=cookie.load('sessionUser');
+  var sessionId=cookie.load('sessionId');
+  if(sessionUser!='undefined' && sessionId!='undefined') {
+    var data={
+      sessionId,
+      sessionUser,
+    }
+    return {
+      type: C.USER_COOKIE_SUCCESS,
+      data,
+    };
+  } else {
+    return {
+      type: C.USER_COOKIE_FAILURE,
+    };
+  }
 }
 
 /**
@@ -164,5 +191,46 @@ export function openSnackBar(message) {
 export function closeSnackBar() {
   return {
     type: C.SNACKBAR_CLOSE,
+  };
+}
+
+/**
+ *
+ *
+ * @param  {}
+ *
+ * @return {object}    An action object with a type of
+ */
+export function videoRate(data) {
+  return {
+    type: C.VIDEO_RATE,
+    data,
+  };
+}
+
+/**
+ *
+ *
+ * @param  {}
+ *
+ * @return {object}    An action object with a type of
+ */
+export function videoRateSuccess(data) {
+  return {
+    type: C.VIDEO_RATE_SUCCESS,
+    data,
+  };
+}
+/**
+ *
+ *
+ * @param  {}
+ *
+ * @return {object}    An action object with a type of
+ */
+export function videoRateFailure(data) {
+  return {
+    type: C.VIDEO_RATE_FAILURE,
+    data,
   };
 }

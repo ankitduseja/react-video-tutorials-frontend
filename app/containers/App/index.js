@@ -13,42 +13,39 @@ import { connect } from 'react-redux';
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
 
-import Img from 'components/Img';
-import Footer from 'components/Footer';
-import Banner from './banner-metal.jpg';
-import A from 'components/A';
+// import Img from 'components/Img';
+// import Footer from 'components/Footer';
+// import Banner from './banner-metal.jpg';
+// import A from 'components/A';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+// import IconMenu from 'material-ui/IconMenu';
+// import MenuItem from 'material-ui/MenuItem';
 import Snackbar from 'material-ui/Snackbar';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+// import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import ActionHome from 'material-ui/svg-icons/action/home';
 import styles from './styles.css';
+import FlatButton from 'material-ui/FlatButton';
+import { push } from 'react-router-redux';
+import { userLogout } from './actions';
 
 import {selectApp} from './selectors';
 
 function App(props) {
+  var rightElem=<div></div>;
+  if (props.app.sessionId!=null) {
+    rightElem=<FlatButton label="Logout" onClick={props.logout.bind(this)} />
+  }
   return (
     <MuiThemeProvider>
     <div className={styles.wrapper}>
         <AppBar
-          title="VideosApp"
-          iconElementRight={
-            <IconMenu
-              iconButtonElement={
-                <IconButton><MoreVertIcon /></IconButton>
-              }
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-            >
-              <MenuItem primaryText="Refresh" />
-              <MenuItem primaryText="Help" />
-              <MenuItem primaryText="Sign out" />
-            </IconMenu>
-          }
+          title="Videos Tutorial"
+          iconElementLeft={<IconButton onClick={props.gotoHome.bind(this)}><ActionHome color={'white'}/></IconButton>}
+          iconElementRight={rightElem}
         />
           {props.children}
           <Snackbar
@@ -67,6 +64,8 @@ function App(props) {
 // <Footer />
 App.propTypes = {
   children: React.PropTypes.node,
+  changeRoute: React.PropTypes.func,
+  gotoHome: React.PropTypes.func,
 };
 
 // export default App;
@@ -75,6 +74,9 @@ const mapStateToProps = selectApp();
 
 function mapDispatchToProps(dispatch) {
   return {
+    changeRoute: (url) => dispatch(push(url)),
+    gotoHome: () => dispatch(push('/')),
+    logout: () => dispatch(userLogout()),
     dispatch,
   };
 }

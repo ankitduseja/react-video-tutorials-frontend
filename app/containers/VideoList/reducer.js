@@ -16,7 +16,10 @@ const initialState = fromJS({
 
 function videoListReducer(state = initialState, action) {
   switch (action.type) {
-    case C.FETCH_VIDEOS:
+    case C.VIDEO_PLAY:
+      return state
+        .set('videoPlaying',action.id);
+    case C.VIDEOS_FETCH:
       return state
         .set('lazyloading',true);
     case C.VIDEOS_FETCH_SUCCESS:

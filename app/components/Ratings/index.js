@@ -7,13 +7,15 @@
 import React from 'react';
 import Rating from 'react-rating';
 import styles from './styles.css';
+import EmptyStar from 'material-ui/svg-icons/toggle/star-border';
+import FullStar from 'material-ui/svg-icons/toggle/star';
 
 class Ratings extends React.Component {
   componentWillMount() {
 
   }
   onRate(r) {
-    this.props.rate({rate:r,id:this.props.videoId})
+    this.props.rate({rating:r,videoId:this.props.videoId})
   }
   render() {
     var sum=0;
@@ -24,7 +26,11 @@ class Ratings extends React.Component {
     var avg=sum/rating.length;
     return (
       <div className={ styles.ratings }>
-        <Rating onClick={this.onRate.bind(this)} initialRate={avg}/>
+        <Rating
+          empty={<EmptyStar/>}
+          full={<FullStar/>}
+          onClick={this.onRate.bind(this)}
+          initialRate={avg}/>
       </div>
     );
   }

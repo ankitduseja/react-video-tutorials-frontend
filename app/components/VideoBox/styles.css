@@ -10,3 +10,6 @@
 .title {
   cursor: pointer;
 }
+.ratings {
+  padding: 0.3em 0;
+}
