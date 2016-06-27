@@ -25,8 +25,6 @@ class Video extends React.Component {
     }
   }
   openVideo() {
-    console.log('playing');
-    console.log(this);
     this.setState({vstate:'video'});
     if(this.props.onPlay) {
       this.props.onPlay(this.props.videoProp._id);
@@ -41,7 +39,8 @@ class Video extends React.Component {
     </div>;
     if (this.state.vstate=='video' && this.props.activeVideo===true) {
     videoSpot=<video onplay={this.onPlay.bind(this)} key={this.props.via+'_'+this.props.videoProp._id}
-          autoplay loop={true} controls={true}
+          controls={true}
+          autoPlay={true}
           width={this.props.width}>
           <source src={config.backendDomain+'/'+this.props.videoProp.url} type="video/mp4" />
       </video>;
