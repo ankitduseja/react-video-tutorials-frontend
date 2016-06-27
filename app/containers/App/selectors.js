@@ -15,26 +15,6 @@ const selectApp = () => createSelector(
   }
 );
 
-const selectCurrentUser = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('currentUser')
-);
-
-const selectLoading = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('loading')
-);
-
-const selectError = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('error')
-);
-
-const selectRepos = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.getIn(['userData', 'repositories'])
-);
-
 const selectUserName = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('userName')
@@ -62,7 +42,6 @@ const selectLocationState = () => {
       prevRoutingState = routingState;
       prevRoutingStateJS = routingState.toJS();
     }
-
     return prevRoutingStateJS;
   };
 };
@@ -70,10 +49,6 @@ const selectLocationState = () => {
 export {
   selectGlobal,
   selectApp,
-  selectCurrentUser,
-  selectLoading,
-  selectError,
-  selectRepos,
   selectLocationState,
 
   selectUserName,

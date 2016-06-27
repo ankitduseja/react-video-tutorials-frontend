@@ -19,4 +19,8 @@ class LazyLoader extends React.Component {
   }
 }
 
+LazyLoader.propTypes = {
+  callbackfn: React.PropTypes.func,
+}
+
 export default LazyLoader;

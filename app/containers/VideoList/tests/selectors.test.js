@@ -4,7 +4,7 @@ import {
 import { fromJS } from 'immutable';
 import expect from 'expect';
 
-const selector = selectVideoList();
+// const selector = selectVideoList();
 
 describe('selectVideoList', () => {
 

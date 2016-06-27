@@ -14,6 +14,11 @@ const selectVideoPageDomain = () => state => state.get('videoPage');
  * Default selector used by VideoPage
  */
 
+const selectVideoPages = () => createSelector(
+  selectVideoPageDomain(),
+  (substate) => {substate}
+);
+
 const selectVideoPage = () => createSelector(
   [selectGlobal(),selectVideoPageDomain()],
   (app,substate) => {

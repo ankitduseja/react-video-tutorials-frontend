@@ -12,7 +12,7 @@ describe('<Footer />', () => {
     );
     expect(renderedComponent.contains(
       <section>
-        <p>This project is licensed under the MIT license.</p>
+        <p>&copy; 2016 Videos Tutorials.</p>
       </section>
     )).toEqual(true);
   });
@@ -21,7 +21,7 @@ describe('<Footer />', () => {
     const renderedComponent = shallow(<Footer />);
     expect(renderedComponent.contains(
       <section>
-        <p>Made with love by <A href="https://twitter.com/mxstbr">Max Stoiber</A>.</p>
+        <p>Made with love by <A href="https://ankitduseja.com/">Ankit Duseja</A>.</p>
       </section>
     )).toEqual(true);
   });

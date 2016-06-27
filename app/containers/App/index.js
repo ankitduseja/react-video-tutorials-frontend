@@ -13,10 +13,6 @@ import { connect } from 'react-redux';
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
 
-// import Img from 'components/Img';
-// import Footer from 'components/Footer';
-// import Banner from './banner-metal.jpg';
-// import A from 'components/A';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -31,7 +27,7 @@ import styles from './styles.css';
 import FlatButton from 'material-ui/FlatButton';
 import { push } from 'react-router-redux';
 import { userLogout } from './actions';
-
+import Footer from 'components/Footer';
 import {selectApp} from './selectors';
 
 function App(props) {
@@ -54,14 +50,11 @@ function App(props) {
             autoHideDuration={5000}
             onRequestClose={props.onSnackbarClose}
             />
+          <Footer/>
     </div>
   </MuiThemeProvider>
   );
 }
-// <A className={styles.logoWrapper} href="https://twitter.com/mxstbr">
-//   <Img className={styles.logo} src={Banner} alt="react-boilerplate - Logo" />
-// </A>
-// <Footer />
 App.propTypes = {
   children: React.PropTypes.node,
   changeRoute: React.PropTypes.func,

@@ -22,33 +22,6 @@ import md5 from 'md5';
 import config from '../../config.js'
 
 
-
-// Individual exports for testing
-export function* getGithubData() {
-  while (true) {
-    const watcher = yield race({
-      loadRepos: take(LOAD_REPOS),
-      stop: take(LOCATION_CHANGE), // stop watching if user leaves page
-    });
-
-    if (watcher.stop) break;
-
-    const username = yield select(selectUsername());
-    const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
-
-    // Use call from redux-saga for easier testing
-    const repos = yield call(request, requestURL);
-
-    // We return an object in a specific format, see utils/request.js for more information
-    if (repos.err === undefined || repos.err === null) {
-      yield put(reposLoaded(repos.data, username));
-    } else {
-      // console.log(repos.err.response); // eslint-disable-line no-console
-      yield put(repoLoadingError(repos.err));
-    }
-  }
-}
-
 // Individual exports for testing
 export function* loginUserSaga() {
   while (true) {

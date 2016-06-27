@@ -7,67 +7,38 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 
 import { HomePage } from '../index';
-import RepoListItem from 'containers/RepoListItem';
-import List from 'components/List';
-import LoadingIndicator from 'components/LoadingIndicator';
+
+import LoginForm from 'components/LoginForm';
+import VideoList from 'containers/VideoList';
 
 describe('<HomePage />', () => {
-  it('should render the loading indicator when its loading', () => {
+
+  it('blah blah',()=>{
+    var a=2;
+    console.log(expect(2).toEqual());
+    expect(a).to.be.above(0);
+  });
+  it('should contain LoginForm when not logged in',() => {
+    const renderedComponent = shallow(<HomePage />);
+    expect(renderedComponent.find('LoginForm').length).toEqual(1);
+  });
+  it('Yo: should contain Login Form when logged in', () => {
     const renderedComponent = shallow(
-      <HomePage loading />
+      <HomePage />
     );
-    expect(renderedComponent.contains(<List component={LoadingIndicator} />)).toEqual(true);
+    expect(renderedComponent.find(LoginForm).length).toEqual(1);
   });
 
-  it('should render an error if loading failed', () => {
-    const renderedComponent = mount(
-      <HomePage
-        loading={false}
-        error={{ message: 'Loading failed!' }}
-      />
-    );
-    expect(
-      renderedComponent
-        .text()
-        .indexOf('Something went wrong, please try again!')
-      ).toBeGreaterThan(-1);
+  it('should contain VideoList when logged in',() => {
+    const renderedComponent = shallow(<HomePage app={{sessionId:'sessionId'}} />);
+    console.log(renderedComponent.props());
+    expect(renderedComponent.find('VideoList').length).to.be.above(1);
   });
 
-  it('should render the repositories if loading was successful', () => {
-    const repos = [{
-      owner: {
-        login: 'mxstbr',
-      },
-      html_url: 'https://github.com/mxstbr/react-boilerplate',
-      name: 'react-boilerplate',
-      open_issues_count: 20,
-      full_name: 'mxstbr/react-boilerplate',
-    }];
+  it('Yo: should contain Video List when logged in', () => {
     const renderedComponent = shallow(
-      <HomePage
-        repos={repos}
-        error={false}
-      />
+      <HomePage app={{sessionId:'sessionId'}}  />
     );
-
-    expect(renderedComponent.contains(<List items={repos} component={RepoListItem} />)).toEqual(true);
-  });
-
-  it('should link to /features', () => {
-    const openRouteSpy = expect.createSpy();
-
-    // Spy on the openRoute method of the HomePage
-    const openRoute = (dest) => {
-      if (dest === '/features') {
-        openRouteSpy();
-      }
-    };
-
-    const renderedComponent = mount(
-      <HomePage loading changeRoute={openRoute} />
-    );
-    const button = renderedComponent.find('button');
-    button.simulate('click');
-    expect(openRouteSpy).toHaveBeenCalled();
+    expect(renderedComponent.find(VideoList).length).toEqual(1);
   });
 });

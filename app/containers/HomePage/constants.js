@@ -9,8 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_USERNAME = 'videosApp/App/CHANGE_USERNAME';
-
 export const VIDEOS_LOAD = 'videosApp/App/VIDEOS_LOAD';
 export const VIDEO_GET = 'videosApp/App/VIDEO_GET';
 // export const  = 'videosApp/App/';

@@ -16,12 +16,6 @@ import cookie from 'react-cookie';
 
 // The initial state of the App
 const initialState = fromJS({
-  loading: false,
-  error: false,
-  currentUser: false,
-  userData: fromJS({
-    repositories: false,
-  }),
   userName: null,
   userPass: null,
   sessionState: 'loginInit',
@@ -30,24 +24,11 @@ const initialState = fromJS({
   snackBarStatus: false,
   snackBarMessage: '',
   cookieLoad: false,
+
 });
 
-function homeReducer(state = initialState, action) {
+function appReducer(state = initialState, action) {
   switch (action.type) {
-    case C.LOAD_REPOS:
-      return state
-        .set('loading', true)
-        .set('error', false)
-        .setIn(['userData', 'repositories'], false);
-    case C.LOAD_REPOS_SUCCESS:
-      return state
-        .setIn(['userData', 'repositories'], action.repos)
-        .set('loading', false)
-        .set('currentUser', action.username);
-    case C.LOAD_REPOS_ERROR:
-      return state
-        .set('error', action.error)
-        .set('loading', false);
     case C.SNACKBAR_OPEN:
       return state
         .set('snackBarMessage',action.message)
@@ -109,4 +90,4 @@ function homeReducer(state = initialState, action) {
   }
 }
 
-export default homeReducer;
+export default appReducer;

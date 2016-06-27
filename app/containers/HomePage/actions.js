@@ -18,20 +18,6 @@
 import * as C from './constants';
 
 /**
- * Changes the input field of the form
- *
- * @param  {} name The new text of the input field
- *
- * @return {object}    An action object with a type of CHANGE_USERNAME
- */
-export function changeUsername(name) {
-  return {
-    type: C.CHANGE_USERNAME,
-    name,
-  };
-}
-
-/**
  *
  *
  * @param  {}
