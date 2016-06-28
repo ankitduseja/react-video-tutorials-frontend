@@ -27,16 +27,15 @@ body.fontLoaded {
   display: -ms-flexbox;
   display: flex;
   min-height: 100%;
-  padding: 0 16px;
+  padding: 0;
   flex-direction: column;
 }
-
-.logoWrapper {
-  padding: 2em 0;
+.wrapper2 {
+  padding: 0 3%;
 }
 
-.logo {
-  width: 100%;
-  margin: 0 auto;
-  display: block;
+@media (min-width:800px) {
+  .wrapper2 {
+    padding: 0px;
+  }
 }

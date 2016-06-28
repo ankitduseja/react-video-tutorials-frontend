@@ -43,14 +43,16 @@ function App(props) {
           iconElementLeft={<IconButton onClick={props.gotoHome.bind(this)}><ActionHome color={'white'}/></IconButton>}
           iconElementRight={rightElem}
         />
-          {props.children}
-          <Snackbar
-            open={props.app.snackBarStatus}
-            message={props.app.snackBarMessage}
-            autoHideDuration={5000}
-            onRequestClose={props.onSnackbarClose}
-            />
-          <Footer/>
+      <div className={styles.wrapper2}>
+        {props.children}
+        <Footer/>
+      </div>
+      <Snackbar
+        open={props.app.snackBarStatus}
+        message={props.app.snackBarMessage}
+        autoHideDuration={5000}
+        onRequestClose={props.onSnackbarClose}
+        />
     </div>
   </MuiThemeProvider>
   );
