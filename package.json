@@ -176,6 +176,7 @@
     "react-router": "^2.3.0",
     "react-router-redux": "^4.0.4",
     "react-router-scroll": "^0.2.0",
+    "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-immutable": "^3.0.6",
     "redux-saga": "^0.10.0",
@@ -252,7 +253,7 @@
     "stylelint": "^6.3.3",
     "stylelint-config-standard": "^8.0.0",
     "url-loader": "^0.5.7",
-    "webpack": "^2.1.0-beta.6",
+    "webpack": "^2.1.0-beta.14",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
   }

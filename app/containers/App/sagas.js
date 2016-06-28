@@ -56,7 +56,11 @@ export function* loginUserSaga() {
       yield put(AppActions.loginSuccess(repos.data));
     } else {
       console.log(repos); // eslint-disable-line no-console
-      yield put(AppActions.openSnackBar('Login Failed: '+repos.data.error));
+      var errormsg='Login Failed';
+      if(repos.data && typeof repos.data.error==='string') {
+        errormsg+=': '+repos.data.error;
+      }
+      yield put(AppActions.openSnackBar(errormsg));
       yield put(AppActions.loginFailure(repos.data));
     }
   }
@@ -83,7 +87,11 @@ export function* logoutUserSaga() {
       yield put(AppActions.openSnackBar('Logged Out Succesfully!'));
     } else {
       console.log(repos); // eslint-disable-line no-console
-      yield put(AppActions.openSnackBar('Logout Failed: '+repos.data));
+      var errormsg='Logout Failed';
+      if(repos.data && typeof repos.data.error==='string') {
+        errormsg+=': '+repos.data.error;
+      }
+      yield put(AppActions.openSnackBar(errormsg));
       yield put(AppActions.logoutFailure(repos.data));
     }
   }
@@ -122,7 +130,11 @@ export function* rateVideo() {
       yield put(AppActions.videoRateSuccess(repos.data));
     } else {
       console.log(repos); // eslint-disable-line no-console
-      yield put(AppActions.openSnackBar('Rating Failed: '+repos.data.error));
+      var errormsg='Rating Failed';
+      if(repos.data && typeof repos.data.error==='string') {
+        errormsg+=': '+repos.data.error;
+      }
+      yield put(AppActions.openSnackBar(errormsg));
       yield put(AppActions.videoRateFailure(repos.data));
     }
   }
