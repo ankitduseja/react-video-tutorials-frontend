@@ -26,6 +26,9 @@ class Video extends React.Component {
   }
   openVideo() {
     this.setState({vstate:'video'});
+    if(this.props.onPlay) {
+      this.props.onPlay(this.props.videoProp._id);
+    }
   }
   onPlay() {
     if(this.props.onPlay) {
