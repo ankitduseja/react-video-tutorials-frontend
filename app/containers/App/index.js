@@ -39,7 +39,7 @@ function App(props) {
     <MuiThemeProvider>
     <div className={styles.wrapper}>
         <AppBar
-          title="Videos Tutorial"
+          title="Crossover Video Tutorials"
           iconElementLeft={<IconButton onClick={props.gotoHome.bind(this)}><ActionHome color={'white'}/></IconButton>}
           iconElementRight={rightElem}
         />

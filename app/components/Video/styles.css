@@ -21,7 +21,7 @@
 .playicon {
   position: relative;
   /*top: 50%;*/
-  transform: translateY(70%);
+  transform: translateY(60%);
 }
 
 .videoplayer {
@@ -30,9 +30,12 @@
 
 @media (min-width:540px) {
   .cover {
-    min-height: 150px;
+    min-height: 130px;
+  }
+  .videoplayer{
+    min-height: 130px;
   }
   .playicon {
-    transform: translateY(50%);
+    transform: translateY(30%);
   }
 }

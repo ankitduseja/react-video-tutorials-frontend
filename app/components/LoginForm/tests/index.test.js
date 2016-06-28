@@ -18,9 +18,7 @@ describe('<LoginForm />', () => {
         <LoginForm onSubmit={onSubmit} onSnackbarOpen={onSnackbarOpen} />
       </MuiThemeProvider>
     );
-    const button = ReactTestUtils.findRenderedDOMComponentWithTag(wrapper.instance(), 'button');
-    const node = ReactDOM.findDOMNode(button);
-    ReactTestUtils.Simulate.click(node);
+    wrapper.find('form').simulate('submit');
     expect(onSnackbarOpen.calledWith('Username is required')).toEqual(true);
     expect(onSubmit.calledOnce).toEqual(false);
   });
@@ -34,9 +32,7 @@ describe('<LoginForm />', () => {
     );
     var username=wrapper.find('TextField').get(0).input;
     username.value='some username';
-    const button = ReactTestUtils.findRenderedDOMComponentWithTag(wrapper.instance(), 'button');
-    const node = ReactDOM.findDOMNode(button);
-    ReactTestUtils.Simulate.click(node);
+    wrapper.find('form').simulate('submit');
     expect(onSnackbarOpen.calledWith('Password is required')).toEqual(true);
     expect(onSubmit.calledOnce).toEqual(false);
   });
@@ -52,11 +48,11 @@ describe('<LoginForm />', () => {
     var password=wrapper.find('TextField').get(1).input;
     username.value='some username';
     password.value='some password';
-    const button = ReactTestUtils.findRenderedDOMComponentWithTag(wrapper.instance(), 'button');
-    const node = ReactDOM.findDOMNode(button);
-    ReactTestUtils.Simulate.click(node);
+    // const button = ReactTestUtils.findRenderedDOMComponentWithTag(wrapper.instance(), 'button');
+    // const node = ReactDOM.findDOMNode(button);
+    // ReactTestUtils.Simulate.click(node);
+    wrapper.find('form').simulate('submit');
     expect(LoginForm.prototype.onSubmitLoginForm.calledOnce).toBe(true);
     expect(onSubmitFn.calledOnce).toEqual(true);
-
   });
 });

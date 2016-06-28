@@ -102,7 +102,6 @@ export function* rateVideo() {
     const sessionId = yield select(selectSessionId());
     const requestURL = config.backendDomain+`/video/ratings?sessionId=${sessionId}`;
     let postdata=watcher.rateVideo.data;
-    console.log(postdata);
     const formbody=objToFormBody(postdata);
     const requestOptions={
       method: 'POST',
@@ -114,7 +113,6 @@ export function* rateVideo() {
       body: formbody,
       cache: false
     };
-    console.log(requestURL);
     // Use call from redux-saga for easier testing
     const repos = yield call(request, requestURL, requestOptions);
     // We return an object in a specific format, see utils/request.js for more information
