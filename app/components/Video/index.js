@@ -31,14 +31,14 @@ class Video extends React.Component {
     }
   }
   onPlay() {
-    // this.props.onPlay(this.props.videoProp._id);
+
   }
   render() {
-    var videoSpot=<div onClick={this.openVideo.bind(this)} className={styles.cover} style={{width:this.props.width,height:this.props.height}}>
+    var videoSpot=<div data-cname='VideoCover' onClick={this.openVideo.bind(this)} className={styles.cover} style={{width:this.props.width,height:this.props.height}}>
       <PlayIcon className={styles.playicon} color={'white'} style={{width:80,height:80}}/>
     </div>;
     if (this.state.vstate=='video' && this.props.activeVideo===true) {
-    videoSpot=<video onplay={this.onPlay.bind(this)} key={this.props.via+'_'+this.props.videoProp._id}
+    videoSpot=<video onPlay={this.onPlay.bind(this)} key={this.props.via+'_'+this.props.videoProp._id}
           controls={true}
           autoPlay={true}
           width={this.props.width}>
@@ -52,18 +52,4 @@ class Video extends React.Component {
     );
   }
 }
-// <Controls>
-//   <Play className/>
-//   <Seek />
-//   <Time />
-//   <Mute />
-//   <Fullscreen />
-// </Controls>
-// <VideoPlayer controls autoPlay loop muted
-//     poster="http://sourceposter.jpg"
-//     onCanPlayThrough={() => {
-//         // Do stuff
-//     }}>
-//     <source src="http://sourcefile.webm" type="video/webm" />
-// </VideoPlayer>
 export default Video;

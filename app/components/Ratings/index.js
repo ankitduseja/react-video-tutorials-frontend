@@ -30,7 +30,8 @@ class Ratings extends React.Component {
           empty={<EmptyStar/>}
           full={<FullStar/>}
           onClick={this.onRate.bind(this)}
-          initialRate={avg}/>
+          initialRate={avg}>
+        </Rating>
       </div>
     );
   }

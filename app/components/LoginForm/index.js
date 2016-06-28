@@ -15,10 +15,10 @@ class LoginForm extends React.Component {
     var userNameError='';
     var userPassError='';
   }
-  onSubmitLoginForm = () => {
+  onSubmitLoginForm() {
     var data={
-      userName: this.userName.input.value,
-      userPass: this.userPass.input.value,
+      userName: this.refs['un'].input.value,
+      userPass: this.refs['pw'].input.value,
     }
     if(data.userName==='') {
       this.props.onSnackbarOpen('Username is required');
@@ -35,11 +35,11 @@ class LoginForm extends React.Component {
       <div className={ styles.loginForm }>
         <Paper className={styles.loginPaper}>
           <form>
-            <TextField hintText='Username' floatingLabelText='Username' type='text' name='username' ref={(ref) => this.userName = ref} defaultValue='ali' required={true} />
-            <TextField hintText='Password' floatingLabelText='Password' type='password' name='password' ref={(ref) => this.userPass = ref} defaultValue='password' required={true} />
+            <TextField hintText='Username' floatingLabelText='Username' type='text' name='username' ref='un' required={true} />
+            <TextField hintText='Password' floatingLabelText='Password' type='password' name='password' ref='pw' required={true} />
             <br/>
             <br/>
-            <RaisedButton onClick={this.onSubmitLoginForm} primary={true} label='Submit' />
+            <RaisedButton onClick={this.onSubmitLoginForm.bind(this)} primary={true} label='Submit' />
           </form>
         </Paper>
       </div>

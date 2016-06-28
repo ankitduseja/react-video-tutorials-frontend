@@ -165,6 +165,7 @@
     "material-ui": "^0.15.1",
     "md5": "^2.1.0",
     "react": "^15.0.1",
+    "react-addons-test-utils": "^15.1.0",
     "react-cookie": "^0.4.7",
     "react-dom": "^15.0.1",
     "react-html5video": "^1.2.9",
@@ -180,6 +181,7 @@
     "redux-saga": "^0.10.0",
     "reselect": "^2.5.1",
     "sanitize.css": "^3.3.0",
+    "sinon": "^2.0.0-pre",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {

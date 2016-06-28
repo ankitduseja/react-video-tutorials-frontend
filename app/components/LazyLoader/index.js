@@ -10,7 +10,7 @@ import React from 'react';
 class LazyLoader extends React.Component {
   componentDidMount=() => {
     this.props.callbackfn(this.props.z);
-  }
+  };
   render() {
     return (
       <div>
@@ -21,6 +21,7 @@ class LazyLoader extends React.Component {
 
 LazyLoader.propTypes = {
   callbackfn: React.PropTypes.func,
+  componentDidMount: React.PropTypes.func,
 }
 
 export default LazyLoader;

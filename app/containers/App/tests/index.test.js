@@ -7,11 +7,7 @@ import Footer from 'components/Footer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router';
-import configureStore from '../../../store';
-
-const initialState = {};
-const store = configureStore(initialState, browserHistory);
+import store from 'testStore';
 
 describe('<App />', () => {
 
