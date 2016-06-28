@@ -97,6 +97,7 @@ export function* rateVideo() {
       stop: take(LOCATION_CHANGE), // stop watching if user leaves page
     });
     if (watcher.stop) break;
+
     yield put(AppActions.openSnackBar('Recording your rating...'));
 
     const sessionId = yield select(selectSessionId());

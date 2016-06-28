@@ -86,7 +86,9 @@ function appReducer(state = initialState, action) {
         .set('sessionUser',null)
         .set('sessionId',null);
     default:
-      return state;
+      return state
+        .set('snackBarMessage','')
+        .set('snackBarStatus',false);
   }
 }
 
