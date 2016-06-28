@@ -26,22 +26,24 @@ class Video extends React.Component {
   }
   openVideo() {
     this.setState({vstate:'video'});
+  }
+  onPlay() {
     if(this.props.onPlay) {
       this.props.onPlay(this.props.videoProp._id);
     }
   }
-  onPlay() {
-
-  }
   render() {
-    var videoSpot=<div data-cname='VideoCover' onClick={this.openVideo.bind(this)} className={styles.cover} style={{width:this.props.width,height:this.props.height}}>
+    if (this.state.vstate=='video' && this.props.activeVideo!==true && this.refs['videoref'] && this.refs['videoref'].paused!=true) {
+      this.refs['videoref'].pause();
+    }
+    var videoSpot=<div data-cname='VideoCover' onClick={this.openVideo.bind(this)} className={styles.cover}>
       <PlayIcon className={styles.playicon} color={'white'} style={{width:80,height:80}}/>
     </div>;
-    if (this.state.vstate=='video' && this.props.activeVideo===true) {
-    videoSpot=<video onPlay={this.onPlay.bind(this)} key={this.props.via+'_'+this.props.videoProp._id}
+    if (this.state.vstate=='video') {
+    videoSpot=<video className={styles.videoplayer} ref='videoref' onPlay={this.onPlay.bind(this)} key={this.props.via+'_'+this.props.videoProp._id}
           controls={true}
           autoPlay={true}
-          width={this.props.width}>
+          >
           <source src={config.backendDomain+'/'+this.props.videoProp.url} type="video/mp4" />
       </video>;
     }

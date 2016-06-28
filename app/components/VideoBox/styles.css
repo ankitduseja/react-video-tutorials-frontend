@@ -1,15 +1,33 @@
-.videoBox {
-  width: 200px;
-  height: 250px;
-  float: left;
-  margin: 2%;
-  overflow: hidden;
-  padding: 10px;
-  text-align: left;
+
+@media (min-width:200px) {
+  .videoBox {
+    text-align: center;
+    width: 90%;
+    min-height: 200px;
+    float: left;
+    margin: 5%;
+    overflow: hidden;
+    padding: 5%;
+  }
+  .title {
+    cursor: pointer;
+  }
+  .ratings {
+    padding: 0.3em 0;
+  }
 }
-.title {
-  cursor: pointer;
+
+@media (min-width:540px) {
+  .videoBox {
+    margin: 2%;
+    width: 45%;
+    padding: 2%;
+    text-align: left;
+  }
 }
-.ratings {
-  padding: 0.3em 0;
+
+@media (min-width:800px) {
+  .videoBox {
+    width: 29%;
+  }
 }
