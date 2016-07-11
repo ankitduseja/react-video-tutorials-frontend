@@ -1,4 +1,4 @@
-# Crossover Video Tutorials App
+# Video Tutorials App
 
 The package consists of two folders:
 1. frontend
@@ -41,4 +41,4 @@ Frontend : [http://localhost:3000/](http://localhost:3000/)
 
 Backend  : [http://localhost:3030/](http://localhost:3030/)
 
-&copy; 2016 This code was developed for crossover by [Ankit Duseja](https://www.ankitduseja.com/).
+&copy; 2016 This code was developed by [Ankit Duseja](https://www.ankitduseja.com/).

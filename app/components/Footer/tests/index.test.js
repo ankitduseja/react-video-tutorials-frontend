@@ -12,7 +12,7 @@ describe('<Footer />', () => {
     );
     expect(renderedComponent.contains(
       <section>
-        <p>&copy; 2016 Crossover Videos Tutorials.</p>
+        <p>&copy; 2016 Videos Tutorials.</p>
       </section>
     )).toEqual(true);
   });
